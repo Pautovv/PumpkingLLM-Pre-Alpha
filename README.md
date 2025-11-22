@@ -1,15 +1,18 @@
 mychat/
+├── config/
+|   ├── hyperparams.py             
+│   └── paths.py
 ├── model/
-│   ├── gpt.py             # Твой GPT класс
-│   ├── layers.py          # DecoderBlock и PosEnc
-│   ├── tokenizer.py       # SimpleTokenizer
-│   └── utils.py           # masks, helpers
+│   ├── gpt.py             
+│   ├── layers.py          
+│   ├── tokenizer.py       
+│   └── utils.py           
 ├── data/
-│   ├── dataset.py         # TextDataset
+│   ├── dataset.py         
 │   └── prepare_data.py
-├── train.py               # цикл обучения
-├── generate.py            # генерация текста
-├── chat_cli.py            # CLI-интерфейс
+├── train.py               
+├── generate.py            
+├── chat_cli.py            
 └── requirements.txt
 
 
