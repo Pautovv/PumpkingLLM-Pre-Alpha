@@ -87,14 +87,14 @@ class Tokenizer:
             pair_stats = self._get_pair_stats(corpus)
             if not pair_stats: break
 
-            best_pair = pair_stats.most_common(1)[0]
+            best_pair = pair_stats.most_common(1)[0][0]
             new_token = ''.join(best_pair)
 
             if new_token in self.vocab:
                 del pair_stats[best_pair]
                 if not pair_stats:
                     break
-                best_pair = pair_stats.most_common(1)[0]
+                best_pair = pair_stats.most_common(1)[0][0]
                 new_token = ''.join(best_pair)
                 if new_token in self.vocab: break
 
@@ -129,7 +129,7 @@ class Tokenizer:
 
         for w in words:
             chars = list(w)
-            if self.use_end_marker: chars.append(self.end_marker)
+            if self.end_flag: chars.append(self.end_marker)
 
             changed_flag = True
             while changed_flag:
@@ -166,8 +166,8 @@ class Tokenizer:
 
         for t in tokens:
             if skip_special and (t in self.special_tokens): continue
-            if self.use_end_marker and t == self.end_marker: continue
-            if self.use_end_marker and self.end_marker in t: t = t.replace(self.end_marker, ' ')
+            if self.end_flag and t == self.end_marker: continue
+            if self.end_flag and self.end_marker in t: t = t.replace(self.end_marker, ' ')
             out_tokens.append(t)
 
         text = ' '.join(out_tokens)
@@ -183,7 +183,7 @@ class Tokenizer:
     def save(self, path):
         data = {
             'vocab_size': self.vocab_size,
-            'use_end_marker': self.use_end_marker,
+            'end_flag': self.end_flag,
             'token2id': self.token2id,
             'id2token': self.id2token,
             'merges': self.merges,
@@ -205,7 +205,7 @@ class Tokenizer:
 
         tokenizer = cls(
             vocab_size=data['vocab_size'],
-            use_end_marker=data['use_end_marker']
+            end_flag=data['end_flag']
         )
 
         tokenizer.token2id = data['token2id']
