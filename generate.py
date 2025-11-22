@@ -3,7 +3,7 @@ from model.gpt import GPT
 from model.tokenizer import Tokenizer
 from config.hyperparams import hyperparams
 
-def generate(prompt, model_path, tokenizer_path, max_len=64, temperature=1.0):
+def generate(prompt, model_path, tokenizer_path, max_len=hyperparams.max_len, temperature=hyperparams.temperature):
     tokenizer = Tokenizer.load(tokenizer_path)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
